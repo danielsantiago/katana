@@ -25,13 +25,13 @@ module Katana
         end
       end
 
-      if ENV['TWEETBOT_API']
+      if ENV['API']
         # experimental (unauthenticated) API endpoint for tweetbot
-        get '/api/create/?' do
+        post '/api/create/?' do
           status, head, body = settings.service.create(params[:url], params[:code])
 
           if loc = head['Location']
-            "#{File.join("http://", request.host, loc)}"
+            "#{File.join("https://", request.host, loc)}"
           else
             500
           end
